@@ -37,4 +37,12 @@ class ProductController extends Controller
         $product->delete();
         return response()->json(['message' => 'Product deleted successfully']);
     }
+    public function byType(string $type)
+{
+    $products = Product::with('images')
+        ->where('type', $type)
+        ->get();
+
+    return ProductResource::collection($products);
+}
 }

@@ -21,10 +21,13 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+         return [
+            'type'        => 'sometimes|required|string|max:50',
             'name'        => 'sometimes|required|string|max:255',
             'price'       => 'sometimes|required|numeric|min:0',
             'description' => 'nullable|string',
+            'attributes'  => 'nullable|array',
+            'attributes.*'=> 'string',
         ];
     }
 }
