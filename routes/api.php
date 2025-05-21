@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\CartController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -31,4 +32,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/products/{product}/images', [ProductImageController::class, 'store']);
     Route::delete('/products/{product}/images/{image}', [ProductImageController::class, 'destroy']);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);              
+    Route::post('/cart/items', [CartController::class, 'store']);      
+    Route::put('/cart/items/{item}', [CartController::class, 'update']); 
+    Route::delete('/cart/items/{item}', [CartController::class, 'destroy']); 
 });
