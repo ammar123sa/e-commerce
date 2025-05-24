@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+    public function favoredBy()
+{
+    return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+}
+
 }
