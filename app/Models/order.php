@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * @property int $user_id
+ * @property float $total
+ * @property string $status
+ */
 class Order extends Model
 {
     protected $fillable = ['user_id', 'total', 'status'];

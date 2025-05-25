@@ -14,10 +14,17 @@ class CartResource extends JsonResource
                 return [
                     'id' => $item->id,
                     'product' => [
-                        'id' => $item->product->id,
-                        'name' => $item->product->name,
-                        'price' => $item->product->price,
-                    ],
+                            'id' => $item->product->id,
+                            'name' => $item->product->name,
+                            'price' => $item->product->price,
+                            'images' => $item->product->images->map(function ($image) {
+                                return [
+                                    'id' => $image->id,
+                                    'url' => $image->image_url,
+                                ];
+                            }),
+                        ],
+
                     'quantity' => $item->quantity,
                     'subtotal' => $item->product->price * $item->quantity,
                 ];

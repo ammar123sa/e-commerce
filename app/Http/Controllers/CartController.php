@@ -15,10 +15,13 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
     public function index()
-    {
-        $cart = Auth::user()->cart()->with('items.product')->firstOrCreate();
-        return new CartResource($cart);
-    }
+{
+    $cart = Auth::user()->cart()
+        ->with('items.product.images') 
+        ->firstOrCreate();
+
+    return new CartResource($cart);
+}
 
     public function store(StoreCartItemRequest $request)
     {
