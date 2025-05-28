@@ -29,5 +29,8 @@ class Product extends Model
 {
     return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
 }
-
+public function offer()
+{
+    return $this->hasOne(Offer::class);
+}
 }

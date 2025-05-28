@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OfferController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -27,11 +28,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/favorites/{product}', [FavoriteController::class, 'destroy']);
     // order 
      Route::post('/orders', [OrderController::class, 'store']);
-   // admin products
-     Route::middleware('admin')->group(function () {
+   // offer 
+    Route::get('offers', [OfferController::class, 'index']);
+    Route::get('offers/{id}', [OfferController::class, 'show']);
+
+    
+    // admin products
+    Route::middleware('admin')->group(function () {
+         Route::post('offers', [OfferController::class, 'store']);
         Route::post('/products', [ProductController::class, 'store']);
         Route::put('/products/{product}', [ProductController::class, 'update']);
         Route::delete('/products/{product}', [ProductController::class, 'destroy']);
+        Route::delete('offers/{id}', [OfferController::class, 'destroy']);
+        
+
     });
 });
 
