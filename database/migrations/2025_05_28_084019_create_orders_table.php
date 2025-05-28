@@ -9,17 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('orders', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('user_id')->constrained()->onDelete('cascade');
-    $table->decimal('total', 10, 2);
-    $table->enum('status', ['pending', 'paid', 'failed'])->default('pending');
-    $table->timestamps();
-});
+    public function up()
+{
+    Schema::create('orders', function (Blueprint $table) {
+        $table->id();
+        $table->integer('quantity');
+        $table->decimal('total_amount', 10, 2);
+        $table->boolean('is_paid')->default(true); // لأنه دفع وهمي
+        $table->timestamps();
+    });
+}
 
-    }
 
     /**
      * Reverse the migrations.

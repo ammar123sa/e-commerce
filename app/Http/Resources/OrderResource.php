@@ -13,14 +13,13 @@ class OrderResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-{
-    return [
-        'id' => $this->id,
-        'user_id' => $this->user_id,
-        'total' => $this->total,
-        'status' => $this->status,
-        'created_at' => $this->created_at,
-    ];
-}
-
+    {
+         return [
+            'id' => $this->id,
+            'quantity' => $this->quantity,
+            'total_amount' => number_format($this->total_amount, 2),
+            'is_paid' => $this->is_paid,
+            'created_at' => $this->created_at->toDateTimeString(),
+        ];
+    }
 }

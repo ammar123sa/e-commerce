@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
-    public function store(OrderRequest $request)
+     public function store(StoreOrderRequest $request)
     {
-        $user = Auth::user();
+        $pricePerUnit = 10;
+        $total = $request->quantity * $pricePerUnit;
 
         $order = Order::create([
-            'user_id' => $user->id,
-            'total'   => $request->total,
-            'status'  => 'pending',
+            'quantity' => $request->quantity,
+            'total_amount' => $total,
+            'is_paid' => true,
         ]);
 
-        $paymentSuccess = true;
-
-        $order->update([
-            'status' => $paymentSuccess ? 'paid' : 'failed',
+        return response()->json([
+            'message' => 'تم الدفع بنجاح ✅',
+            'order' => new OrderResource($order),
         ]);
-
-        return new OrderResource($order);
     }
 }

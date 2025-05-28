@@ -3,16 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-/**
- * @property int $user_id
- * @property float $total
- * @property string $status
- */
+
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'total', 'status'];
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['quantity', 'total_amount', 'is_paid'];
 }
+
