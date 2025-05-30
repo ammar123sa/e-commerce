@@ -9,6 +9,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\CommentController ;
+use App\Http\Controllers\RatingController ;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -31,7 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
    // offer 
     Route::get('offers', [OfferController::class, 'index']);
     Route::get('offers/{id}', [OfferController::class, 'show']);
-
+    // comment and rating 
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::post('/ratings', [RatingController::class, 'store']);
     
     // admin products
     Route::middleware('admin')->group(function () {
