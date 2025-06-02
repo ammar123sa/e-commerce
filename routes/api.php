@@ -11,12 +11,14 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\CommentController ;
 use App\Http\Controllers\RatingController ;
+use App\Http\Controllers\ContactController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/contacts', [ContactController::class, 'store']);
 });
 
 //  Product
