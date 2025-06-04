@@ -36,7 +36,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('offers', [OfferController::class, 'index']);
     Route::get('offers/{id}', [OfferController::class, 'show']);
     // comment and rating 
-    Route::post('/comments', [CommentController::class, 'store']);
+    Route::get('/products/{product}/comments', [CommentController::class, 'index']);
+    //Route::post('/comments', [CommentController::class, 'store']) ;
+
     Route::post('/ratings', [RatingController::class, 'store']);
     
     // admin products
@@ -61,4 +63,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart/items', [CartController::class, 'store']);      
     Route::put('/cart/items/{item}', [CartController::class, 'update']); 
     Route::delete('/cart/items/{item}', [CartController::class, 'destroy']); 
+});
+// comments
+Route::prefix('comments')->middleware('auth:sanctum')->group(function () {
+    Route::get('/product/{productId}', [CommentController::class, 'index']); // جلب تعليقات منتج معيّن
+    Route::post('/', [CommentController::class, 'store']);                    // إنشاء تعليق
+    Route::put('/{id}', [CommentController::class, 'update']);               // تعديل تعليق
+    Route::delete('/{id}', [CommentController::class, 'destroy']);           // حذف تعليق
 });
